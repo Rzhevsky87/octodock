@@ -35,7 +35,7 @@ services:
             context: .
             dockerfile: ./vendor_docker/server/php/php.dockerfile
         volumes:
-            - ./../:/var/www/html
+            - ./../:/var/www/html/public
 
     redis:
         image: redis:alpine
