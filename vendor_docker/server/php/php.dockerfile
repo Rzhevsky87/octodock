@@ -1,9 +1,8 @@
 ARG PHP_VERSION
-
-FROM php:PHP_VERSION-apache
-
 ARG USER_ID
 ARG GROUP_ID
+
+FROM php:${PHP_VERSION:-8.0}-apache
 
 RUN a2enmod rewrite
 
@@ -24,8 +23,8 @@ RUN git clone git://github.com/mkoppanen/php-zmq.git \
  && cd .. \
  && rm -fr php-zmq
 
-RUN pecl install redis-5.1.1 \
-    && pecl install xdebug-2.8.1 \
+RUN pecl install redis-5.3.5 \
+    && pecl install xdebug-3.1.2 \
     && docker-php-ext-enable redis xdebug zmq
 
 RUN if [ ${USER_ID:-0} -ne 0 ] && [ ${GROUP_ID:-0} -ne 0 ]; then \
