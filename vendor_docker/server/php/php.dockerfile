@@ -27,14 +27,13 @@ RUN pecl install redis-5.3.5 \
     && pecl install xdebug-3.1.2 \
     && docker-php-ext-enable redis xdebug zmq
 
-RUN if [ ${USER_ID:-0} -ne 0 ] && [ ${GROUP_ID:-0} -ne 0 ]; then \
-    userdel -f www-data &&\
+RUN userdel -f www-data &&\
     if getent group www-data ; then groupdel www-data; fi &&\
-    groupadd -g ${GROUP_ID} www-data &&\
-    useradd -l -u ${USER_ID} -g www-data www-data &&\
+    groupadd -g ${GROUP_ID:-1000} www-data &&\
+    useradd -l -u ${USER_ID:-1000} -g www-data www-data &&\
     install -d -m 0755 -o www-data -g www-data /home/www-data &&\
-    chown www-data:www-data /var/www/html; \
-    	chmod 777 /var/www/html \
-;fi
+    chown --changes --silent --no-dereference --recursive \
+              --from=33:33 ${USER_ID:-1000}:${GROUP_ID:-1000} \
+            /var/www/html/public
 
 USER www-data
