@@ -1,4 +1,6 @@
-FROM php:7.4.26-apache
+ARG PHP_VERSION
+
+FROM php:PHP_VERSION-apache
 
 ARG USER_ID
 ARG GROUP_ID

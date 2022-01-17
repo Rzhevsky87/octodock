@@ -9,6 +9,7 @@ services:
             args:
                 USER_ID: ${USER_ID:-0}
                 GROUP_ID: ${GROUP_ID:-0}
+                PHP_VERSION: ${PHP_VERSION:-8.0}
         depends_on:
             - db
         volumes:
@@ -40,6 +41,7 @@ services:
             dockerfile: ./vendor_docker/server/php/php.dockerfile
         volumes:
             - ./../:/var/www/html/public
+            - ./vendor_docker/server/cron:/etc/cron.d/cron
 
     redis:
         image: redis:alpine
