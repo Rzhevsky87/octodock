@@ -30,6 +30,7 @@ services:
             MYSQL_USER: bitcom
             MYSQL_PASSWORD: ${DB_PWD}
         volumes:
+            - ./vendor_docker/mysql/conf.d:/etc/mysql/conf.d
             - ./volumes/mysql/data:/var/lib/mysql
         ports:
             - "${DB_PORT:-3306}:3306"
