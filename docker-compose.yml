@@ -22,7 +22,7 @@ services:
 
     db:
         container_name: ${PROJECT_NAME}_db
-        image: mariadb
+        image: mysql:${MYSQL_VERSHION}
         restart: on-failure
         environment:
             MYSQL_ROOT_PASSWORD: ${DB_ROOT_PWD}
